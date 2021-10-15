@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "productname": "book",
+    "producttype": "book",
+    "price": 12.49,
+    "importtax": "false",
+    "generaltax": "false"
+  },
+  {
+    "id": 2,
+    "productname": "music CD",
+    "producttype": "music CD",
+    "price": 14.99,
+    "importtax": "false",
+    "generaltax": "true"
+  },
+  {
+    "id": 3,
+    "productname": "chocolate bar",
+    "producttype": "food",
+    "price": 0.85,
+    "importtax": "false",
+    "generaltax": "false"
+  },
+  {
+    "id": 4,
+    "productname": "imported box of chocolates",
+    "producttype": "food",
+    "price": 10.00,
+    "importtax": "true",
+    "generaltax": "false"
+  },
+  {
+    "id": 5,
+    "productname": "imported bottle of perfume",
+    "producttype": "perfume",
+    "price": 47.50,
+    "importtax": "true",
+    "generaltax": "true"
+  },
+  {
+    "id": 6,
+    "productname": "imported bottle of perfume",
+    "producttype": "perfume",
+    "price": 27.99,
+    "importtax": "true",
+    "generaltax": "true"
+  },
+  {
+    "id": 7,
+    "productname": "bottle of perfume",
+    "producttype": "perfume",
+    "price": 18.99,
+    "importtax": "false",
+    "generaltax": "true"
+  },
+  {
+    "id": 8,
+    "productname": "packet of headache pills",
+    "producttype": "medecine",
+    "price": 9.75,
+    "importtax": "false",
+    "generaltax": "false"
+  },
+  {
+    "id": 9,
+    "productname": "box of imported chocolates",
+    "producttype": "food",
+    "price": 11.25,
+    "importtax": "true",
+    "generaltax": "false"
+  }
+]
