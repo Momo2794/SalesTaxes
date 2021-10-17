@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+      <head>
+          <meta charset="UTF-8">
+          <title>Problem 1 Sales Taxes</title>
+
+          <link rel="stylesheet" href="../static/stylesheet.css">
+
+          <style>
+              h2 { text-align: center; }
+              h3 { text-align: center; }
+              table { margin: auto; text-align: center }
+              th { padding-left: 2em; padding-right: 2em; }
+              ul { padding: 0; list-style-type: none; }
+              .div-chosed { display: flex; justify-content: center; }
+          </style>
+      </head>
+
+      <body>
+            <h2>Problem 1 Sales Taxes</h2>
+
+            <h3>Products:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Product Type</th>
+                        <th>Price</th>
+                        <th>Is Imported</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="product : ${productList}">
+                        <td th:text="${product.productID}"></td>
+                        <td th:text="${product.productname}"></td>
+                        <td th:text="${product.producttype}"></td>
+                        <td th:text="${product.productprice}"></td>
+                        <span>
+                            <td th:if="${product.importtax} == true">X</td>
+                            <td th:if="${product.importtax} == false"></td>
+                        </span>
+                        <td>
+                            <a th:href="@{'/chosen/' + ${product.productID}}">Chose Product</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Chosen Products</h3>
+            <div class="div-chosed">
+                <ul th:each="chosedPr : ${chosedPrList}">
+                    <li th:text="${chosedPr}"></li>
+                </ul>
+            </div>
+      </body>
+</html>

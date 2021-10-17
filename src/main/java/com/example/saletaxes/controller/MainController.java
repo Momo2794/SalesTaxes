@@ -8,9 +8,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,22 +26,33 @@ public class MainController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/data/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    private List<Product> getAllData() {
-        List<Product> productList = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<Product>> typeReference = new TypeReference<List<Product>>() {};
-        InputStream inputStream = TypeReference.class.getResourceAsStream("/json/Product.json");
+    private List<Product> chosenProducts = new ArrayList<>();
 
-        try {
-            objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-            List<Product> products = objectMapper.readValue(inputStream, typeReference);
-            productList = products;
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private String showAllProducts(Model model) {
+        model.addAttribute("productList", productService.getAllProducts());
+        model.addAttribute("chosedPrList", chosenProducts);
+        return "index";
+    }
+
+    @RequestMapping(value = "/chosen/{id}", method = RequestMethod.GET)
+    private ModelAndView showChosenProduct(@PathVariable(name = "id") long id) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        Product product = productService.getProductByID(id);
+        List<String> output = new ArrayList<>();
+
+        Double amount = 0.00;
+
+        chosenProducts.add(product);
+
+        for (Product p : chosenProducts) {
+            output.add("1 " + p.getProductname() + ": " + p.getProductprice());
         }
 
-        return productList;
+        modelAndView.addObject("productList", productService.getAllProducts());
+        modelAndView.addObject("chosedPrList", output);
+        return modelAndView;
     }
+
+
 }

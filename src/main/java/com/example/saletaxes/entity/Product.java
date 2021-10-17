@@ -2,32 +2,30 @@ package com.example.saletaxes.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long productID;
 
-    @JsonProperty("productname")
+    @Column(name ="productname")
     private String productname;
 
-    @JsonProperty("producttype")
+    @Column(name ="producttype")
     private String producttype;
 
-    @JsonProperty("price")
+    @Column(name ="price")
     private Double productprice;
 
-    @JsonProperty("importtax")
+    @Column(name ="importtax")
     private Boolean importtax;
 
-    @JsonProperty("generaltax")
+    @Column(name ="generaltax")
     private Boolean generaltax;
 
     public Product(Long productID, String productname, String producttype, Double productprice, Boolean importtax, Boolean generaltax) {
