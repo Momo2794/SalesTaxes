@@ -6,3 +6,6 @@ After you paste the URL 'localhost:8080/index' in a web browser, you must see th
 then this product will be listed in the section 'Chosen Products'.
 
 With the button 'Clear Chosed Items' the list will be cleared.
+
+The Project was build with the IDE Intellij Community Edition, Java 11, Spring Boot, Thymeleaf, 
+JPA Hibernate and the embedded Relational Database H2. 
