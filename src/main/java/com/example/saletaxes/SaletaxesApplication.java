@@ -21,5 +21,7 @@ public class SaletaxesApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SaletaxesApplication.class, args);
+
+		System.out.println("The URL to use this program is 'localhost:8080/index'");
 	}
 }

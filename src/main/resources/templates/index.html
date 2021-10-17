@@ -11,8 +11,8 @@
               h3 { text-align: center; }
               table { margin: auto; text-align: center }
               th { padding-left: 2em; padding-right: 2em; }
-              ul { padding: 0; list-style-type: none; }
-              .div-chosed { display: flex; justify-content: center; }
+              ul { display: table; margin: 0 auto; padding: 0; list-style-type: none; }
+              .div-but { display: flex; justify-content: center; align-items: center; }
           </style>
       </head>
 
@@ -49,10 +49,14 @@
             </table>
 
             <h3>Chosen Products</h3>
-            <div class="div-chosed">
-                <ul th:each="chosedPr : ${chosedPrList}">
-                    <li th:text="${chosedPr}"></li>
-                </ul>
+            <ul>
+                <li th:each="chosedPr : ${chosedPrList}" th:text="${chosedPr}"></li>
+            </ul>
+
+            <div class="div-but">
+                <form th:action="@{/index}" method="get">
+                    <input type="submit" value="Clear Chosed Items">
+                </form>
             </div>
       </body>
 </html>

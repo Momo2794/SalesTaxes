@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +29,10 @@ public class MainController {
 
     private List<Product> chosenProducts = new ArrayList<>();
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     private String showAllProducts(Model model) {
+        chosenProducts.clear();
+
         model.addAttribute("productList", productService.getAllProducts());
         model.addAttribute("chosedPrList", chosenProducts);
         return "index";
@@ -42,12 +45,58 @@ public class MainController {
         List<String> output = new ArrayList<>();
 
         Double amount = 0.00;
+        Double saletax = 0.00;
+        Double saletaxtotal = 0.00;
+        Double total = 0.00;
+
+        DecimalFormat df = new DecimalFormat(".00");
 
         chosenProducts.add(product);
 
         for (Product p : chosenProducts) {
-            output.add("1 " + p.getProductname() + ": " + p.getProductprice());
+            if ((p.getImporttax() == false) && (p.getGeneraltax() == false)) {
+                saletax = 0.00;
+
+                amount = p.getProductprice();
+                amount = (Math.round(amount*100)/100.00);
+            } else if ((p.getImporttax() == false) && (p.getGeneraltax() == true)) {
+                saletax = (p.getProductprice()/100*10);
+                saletax = (Math.round(saletax*100)/100.00);
+
+                amount = p.getProductprice() + saletax;
+                amount = (Math.round(amount*100)/100.00);
+            } else if ((p.getImporttax() == true) && (p.getGeneraltax() == false)) {
+                saletax = (p.getProductprice()/100*5);
+                saletax = (Math.round(saletax*100)/100.00);
+
+                amount = p.getProductprice() + saletax;
+                amount = (Math.round(amount*100)/100.00);
+            } else if ((p.getImporttax() == true) && (p.getGeneraltax() == true)) {
+                saletax = (p.getProductprice()/100*5);
+                saletax = (Math.round(saletax*100)/100.00);
+
+                amount = p.getProductprice() + saletax;
+                amount = (Math.round(amount*100)/100.00);
+
+                saletaxtotal += saletax;
+
+                saletax = (amount/100*10);
+                saletax = (Math.round(saletax*100)/100.00);
+
+                amount = amount + saletax;
+                amount = (Math.round(amount*100)/100.00);
+            }
+
+            total += amount;
+            saletaxtotal += saletax;
+            output.add("1 " + p.getProductname() + ": " + amount);
         }
+
+        saletaxtotal = (Math.round(saletaxtotal*100)/100.00);
+        total = (Math.round(total*100)/100.00);
+
+        output.add("Sales Taxes: " + saletaxtotal);
+        output.add("Total: " + total);
 
         modelAndView.addObject("productList", productService.getAllProducts());
         modelAndView.addObject("chosedPrList", output);
