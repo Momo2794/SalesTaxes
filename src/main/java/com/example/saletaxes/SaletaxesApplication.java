@@ -22,22 +22,4 @@ public class SaletaxesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SaletaxesApplication.class, args);
 	}
-
-	/*
-	@Bean
-	CommandLineRunner runner(ProductService productService) {
-		return args -> {
-			ObjectMapper objectMapper = new ObjectMapper();
-			TypeReference<List<Product>> typeReference = new TypeReference<List<Product>>() {};
-			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/Product.json");
-
-			try {
-				List<Product> products = objectMapper.readValue(inputStream, typeReference);
-				productService.saveAllProducts(products);
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-		};
-	}
-	 */
 }

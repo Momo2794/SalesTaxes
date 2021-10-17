@@ -18,6 +18,10 @@ public class ProductService {
         return productList;
     }
 
+    public Product getProductByID(Long id) {
+        return productRepo.findById(id).get();
+    }
+
     public List<Product> saveAllProducts(List<Product> productList) {
         return productRepo.saveAll(productList);
     }
